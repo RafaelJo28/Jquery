@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Assignments</title>
+    <style>
+        /* CSS for the error class */
+        .error {
+            border: 2px solid red;
+            background-color: yellow;
+        }
+
+        /* Optional styling for layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 8px;
+            width: 200px;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Assignment 1 -->
+    <h2>Assignment 1: Textbox Validation</h2>
+    <input type="text" id="textbox1" placeholder="Enter text (max 10 characters)" />
+
+    <!-- Assignment 2 -->
+    <h2>Assignment 2: Simple Calculator</h2>
+    <input type="number" id="num1" placeholder="Enter first number" />
+    <input type="number" id="num2" placeholder="Enter second number" />
+    <br />
+    <button id="add">+</button>
+    <button id="subtract">-</button>
+    <button id="multiply">*</button>
+    <button id="divide">/</button>
+    <p id="result">Result: </p>
+
+    <!-- Include jQuery -->
+    <script src="jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Assignment 1: Validation on blur
+            $('#textbox1').blur(function () {
+                const inputValue = $(this).val(); // Get the text box value
+                if (inputValue.length > 10) {
+                    $(this).addClass('error'); // Add error class if more than 10 characters
+                } else {
+                    $(this).removeClass('error'); // Remove error class if valid
+                }
+            });
+
+            // Assignment 2: Calculator functionality
+            function calculate(operation) {
+                const num1 = parseFloat($('#num1').val());
+                const num2 = parseFloat($('#num2').val());
+                let result = '';
+
+                if (isNaN(num1) || isNaN(num2)) {
+                    result = 'Please enter valid numbers.';
+                } else {
+                    switch (operation) {
+                        case 'add':
+                            result = num1 + num2;
+                            break;
+                        case 'subtract':
+                            result = num1 - num2;
+                            break;
+                        case 'multiply':
+                            result = num1 * num2;
+                            break;
+                        case 'divide':
+                            if (num2 !== 0) {
+                                result = num1 / num2;
+                            } else {
+                                result = 'Cannot divide by zero.';
+                            }
+                            break;
+                        default:
+                            result = 'Invalid operation.';
+                    }
+                }
+
+                $('#result').text('Result: ' + result);
+            }
+
+            // Event listeners for calculator buttons
+            $('#add').click(function () {
+                calculate('add');
+            });
+
+            $('#subtract').click(function () {
+                calculate('subtract');
+            });
+
+            $('#multiply').click(function () {
+                calculate('multiply');
+            });
+
+            $('#divide').click(function () {
+                calculate('divide');
+            });
+        });
+    </script>
+</body>
+</html>
